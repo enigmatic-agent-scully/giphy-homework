@@ -1,4 +1,4 @@
-var topics = ["The X-Files", "Person of Interest", "Wynonna Earp", "Warehouse 13", "Buffy", "Wentworth",];
+var topics = ["The X-Files", "Person of Interest", "Wynonna Earp", "Warehouse 13", "Buffy", "Star Trek Voyager",];
 var buttonDiv = $(".buttons");
 var i = 0;
 var results;
@@ -11,9 +11,25 @@ function buildButtons() {
         buttonDiv.append(startingButton);
         i++;
     });
-}
+};
 
-$(".show").click(function displayGif() {
+$("#add-button").on("click", function addButton(event) {
+    event.preventDefault();
+    var showName = $("#add-a-show").val();
+    if (showName != null && showName != "") {
+    topics.push(showName);
+    console.log(topics);
+        var button = $(`<button class = "show" data-name = "${showName}">${showName}</button>`);
+        buttonDiv.append(button);
+    }
+    else {
+        alert('Please enter text');
+    }
+}
+    );
+
+
+$("div.buttons").on("click", "button", function displayGifs() {
     var show = $(this).attr("data-name");
     var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=X2ToNs7htvQOI64Ox9NXIbmeiLqOPTsT&q=${show}&limit=10&rating=PG&lang=en`;
 
@@ -28,7 +44,8 @@ $(".show").click(function displayGif() {
         $(".gifs").empty();
         $(".gifs").append(newGifDiv);
         for (var i = 0; i < results.data.length; i++) {
-            var rating = results.data[i].rating;
+            var rating = (results.data[i].rating);
+            rating = rating.toUpperCase();
             var gifDisplay = $(`
             <figure>
             <img src="${results.data[i].images.fixed_height_still.url}" alt="${results.data[i].title}" data-still="${results.data[i].images.fixed_height_still.url}" data-animate="${results.data[i].images.fixed_height.url}" data-state="still">
@@ -41,17 +58,7 @@ $(".show").click(function displayGif() {
     )
 });
 
-$("#add-button").on("click", function addButton() {
-    var showName = $("#add-a-show").val();
-    topics.push(showName);
-    console.log(topics);
-    topics.forEach(function () {
-        var button = $(`<button class = "show" data-name = "${topics[i]}">${topics[i]}</button>`);
-        buttonDiv.append(button);
-        i++;
-    }
-    )
-});
+
 
 $("div.gifs").on("click", "img", function animate() {
     var state = $(this).attr("data-state");
