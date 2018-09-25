@@ -52,3 +52,6 @@ button{
     display:flex;
     justify-content: center;
 }
+label {
+    color: white;
+}

@@ -17,8 +17,8 @@ $("#add-button").on("click", function addButton(event) {
     event.preventDefault();
     var showName = $("#add-a-show").val();
     if (showName != null && showName != "") {
-    topics.push(showName);
-    console.log(topics);
+        topics.push(showName);
+        console.log(topics);
         var button = $(`<button class = "show" data-name = "${showName}">${showName}</button>`);
         buttonDiv.append(button);
     }
@@ -26,7 +26,7 @@ $("#add-button").on("click", function addButton(event) {
         alert('Please enter text');
     }
 }
-    );
+);
 
 
 $("div.buttons").on("click", "button", function displayGifs() {
