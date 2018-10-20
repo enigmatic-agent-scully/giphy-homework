@@ -21,6 +21,7 @@ $("#add-button").on("click", function addButton(event) {
         console.log(topics);
         var button = $(`<button class = "show" data-name = "${showName}">${showName}</button>`);
         buttonDiv.append(button);
+        $("#add-a-show").reset();
     }
     else {
         alert('Please enter text');
